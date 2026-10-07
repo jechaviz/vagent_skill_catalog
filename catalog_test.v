@@ -8,11 +8,11 @@ fn test_exact_site_action_match() {
 		'https://github.com/jechaviz/hebrowser/issues'
 }
 
-fn test_side_effect_action_requires_confirmation() {
+fn test_side_effect_action_remains_executable_by_default() {
 	found := match_action('star repository', 'github.com')
 	assert found.found
 	assert found.action.side_effect
-	assert contract(found.action).confirmation_required()
+	assert !contract(found.action).confirmation_required()
 }
 
 fn test_irrelevant_speech_is_not_forced() {
