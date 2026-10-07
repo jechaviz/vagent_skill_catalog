@@ -92,7 +92,7 @@ pub fn contract(action SkillAction) vaction_contracts.ActionContract {
 	return vaction_contracts.ActionContract{
 		...base
 		action: action.action_name
-		requires_confirmation: base.requires_confirmation || action.requires_confirmation || action.side_effect
+		requires_confirmation: base.requires_confirmation || action.requires_confirmation
 	}
 }
 
@@ -179,7 +179,6 @@ fn github_actions() []SkillAction {
 			phrases: ['star this repository', 'star repository', 'star repo', 'dale star', 'marca con estrella']
 			terms: ['save repository to stars', 'favorite project']
 			command: 'star_repository'
-			requires_confirmation: true
 			side_effect: true
 		},
 	]
