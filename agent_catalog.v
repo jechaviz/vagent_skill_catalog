@@ -1,6 +1,6 @@
 module vagent_skill_catalog
 
-import json
+import json2
 import os
 
 pub const agent_catalog_schema = 'vagent.skill_catalog.v1'
@@ -29,11 +29,11 @@ pub:
 }
 
 pub fn decode_entries(text string) ![]AgentSkillEntry {
-	return json.decode([]AgentSkillEntry, text)!
+	return json2.decode[[]AgentSkillEntry](text)!
 }
 
 pub fn encode_entries(entries []AgentSkillEntry) string {
-	return json.encode(entries)
+	return json2.encode(entries)
 }
 
 pub fn catalog_stats(entries []AgentSkillEntry) AgentSkillStats {

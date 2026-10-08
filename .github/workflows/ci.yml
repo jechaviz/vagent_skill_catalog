@@ -1,0 +1,30 @@
+name: V module CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: vlang/setup-v@v1.7
+        with:
+          check-latest: true
+      - name: Install neutral action contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.vmodules"
+          git clone --depth 1 https://github.com/jechaviz/vaction_contracts.git "$HOME/.vmodules/vaction_contracts"
+      - name: Test V module
+        run: v test .
