@@ -1,7 +1,10 @@
 # vagent_skill_catalog
 
-Neutral V catalog for reusable agent actions.
+Product-neutral V contracts for agent capabilities and skill catalogs.
 
-It stores action identity, domain/host scope, deterministic phrases, lexical terms, route templates, side-effect metadata, and confirmation policy. Product runtimes consume the catalog and decide how to execute the action.
+The module has two reusable surfaces:
 
-The first migrated pack is GitHub, originally expressed as browser-specific product data.
+- **Site actions** — deterministic phrases, lexical matching, host scope, route resolution, side-effect metadata, and confirmation policy. Hebrowser consumes this surface for site-aware actions such as GitHub navigation and mutations.
+- **Agent skill catalog** — generic skill entries, JSON decode/encode, search, adapter discovery, and aggregate statistics. Agent products such as Veloclaw consume these contracts instead of defining reusable catalog schemas under product branding.
+
+The module does not execute actions, call providers, or own product policy. Product runtimes decide how a matched action/skill is activated and must enforce the returned `vaction_contracts` policy where applicable.
