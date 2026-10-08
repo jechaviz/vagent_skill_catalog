@@ -89,10 +89,16 @@ pub fn match_action(phrase string, host string) Match {
 
 pub fn contract(action SkillAction) vaction_contracts.ActionContract {
 	base := vaction_contracts.contract_for_action(action.action_name)
+	mut effects := base.effects.clone()
+	if action.side_effect && .network !in effects {
+		effects << .network
+	}
 	return vaction_contracts.ActionContract{
 		...base
 		action: action.action_name
-		requires_confirmation: base.requires_confirmation || action.requires_confirmation
+		risk: if action.side_effect { vaction_contracts.max_risk(base.risk, .high) } else { base.risk }
+		effects: effects
+		requires_confirmation: base.requires_confirmation || action.requires_confirmation || action.side_effect
 	}
 }
 
