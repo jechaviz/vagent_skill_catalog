@@ -90,7 +90,7 @@ pub fn match_action(phrase string, host string) Match {
 pub fn contract(action SkillAction) vaction_contracts.ActionContract {
 	base := vaction_contracts.contract_for_action(action.action_name)
 	mut effects := base.effects.clone()
-	if action.side_effect && .network !in effects {
+	if action.side_effect && vaction_contracts.Effect.network !in effects {
 		effects << .network
 	}
 	return vaction_contracts.ActionContract{
